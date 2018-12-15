@@ -1,0 +1,35 @@
+<!-- views/login.ejs -->
+<!doctype html>
+<html>
+<head>
+    <title>lim login</title>
+</head>
+    <body>
+        <div class="container">
+            <h1 class="title">Login</h1>
+
+            <!-- show any messages that come back with authentication -->
+            <% if (message.length > 0) { %>
+                <div class="box has-text-danger"><%= message %></div>
+            <% } %>
+            <div id="status"></div>
+
+            <!-- LOGIN FORM -->
+            <form action="/login" method="post">
+                <div class="field">
+                    <div class="control">
+                        <label class="label">Email</label>
+                        <input class="input" name="username" required="required">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <label>Password</label>
+                        <input type="password" class="input" name="password" required="required" type="password" autocomplete="password_login">
+                    </div>
+                </div>
+                <button type="submit" class="button is-primary is-fullwidth">LOGIN</button>
+            </form>
+        </div>
+    </body>
+</html>

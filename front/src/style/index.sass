@@ -1,0 +1,44 @@
+$primary: #F57C00
+$secondary: #009688
+$tertiary: #F44336
+$highlight: #FFC107
+$link: #1976D2
+$font: #212121
+
+$primary-light: lighten($primary, 10)
+$primary-dark: darken($primary, 20)
+$secondary-light: lighten($secondary, 10)
+$secondary-dark: darken($secondary, 10)
+$tertiary-light: lighten($tertiary, 20)
+$tertiary-dark: darken($tertiary, 20)
+$highlight-light: lighten($highlight, 20)
+$highlight-dark: darken($highlight, 30%)
+$link-light: lighten($link, 20)
+$font-light: lighten($font, 30)
+$font-dark: darken($font, 30)
+
+$h1-fontsize: 3.6rem !default
+$h2-fontsize: 3.1rem !default
+$h3-fontsize: 2.4rem !default
+$h4-fontsize: 2rem !default
+$h5-fontsize: 1.4rem !default
+$h6-fontsize: 1rem !default
+
+$heading-font: 'Open Sans', sans-serif
+$body-font: 'Montserrat', sans-serif
+
+body
+    font-family: $body-font
+    color: $font
+    padding: 0
+    margin: 0
+
+html
+    line-height: 1.5
+    font-family: $heading-font
+    color: $font-dark
+    font-weight: normal
+
+@import "typography"
+@import "button"
+
