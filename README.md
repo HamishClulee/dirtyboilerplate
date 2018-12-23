@@ -1,4 +1,4 @@
-# Just another crappy ExpressJS - VueJs Boilerplate
+# Just another ExpressJS - VueJs Boilerplate
 i use this as an app/website starter kit if I want to throw something up, quick and dirty
 
 uses mongo and mongo session auth and passport.js, displays an under construction page if no session token exists and the site if one does
