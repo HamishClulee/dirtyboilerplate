@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -eu
 echo "---------------------- Building locally. --------------------------------------"
 cd front
 yarn build
@@ -13,7 +14,7 @@ git add .
 MSG=". Deployed: $DATE"
 git commit -m "$1 $MSG"
 git push
-echo "---------------------- Deploying lim ------------------------------------------"
+echo "---------------------- shiping the mevn'z -------------------------------------"
 # below is an example of how i deploy to digital ocean, feel free to do whatever you want
-# ssh <<enter your ssh address>> 'cd /var/www/lim && git reset --hard && git pull && sudo systemctl restart lim.service'
+# ssh <<enter your ssh address>> 'cd /var/www/mevn-folder-name && git reset --hard && git pull && sudo systemctl restart mevn-app-name.service'
 echo "---------------------- Deploy complete. Have a nice day. ----------------------"
