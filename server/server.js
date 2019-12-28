@@ -25,7 +25,7 @@ if (process.env.NODE_ENV === 'production') {
 // configuration ==============================================================
 require('./config/passport')(passport)
 mongoose.Promise = global.Promise
-mongoose.connect(_config.dburl)
+mongoose.connect(_config.dburl, { useNewUrlParser: true, useUnifiedTopology: true })
 app.use(compression())
 app.use(cookieParser())
 app.use(bodyParser.json())
