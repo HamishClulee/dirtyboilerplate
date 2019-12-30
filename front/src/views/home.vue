@@ -5,19 +5,9 @@
 </template>
 
 <script>
-    export default {
-        name: 'home',
-        data () {
-            return {
-            }
-        },
-        mounted () {
-        },
-        methods: {
-        },
-        computed: {
-        }
-    }
+export default {
+  name: 'home',
+}
 </script>
 
 <style lang="sass" scoped>

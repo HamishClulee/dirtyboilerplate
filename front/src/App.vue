@@ -8,27 +8,26 @@
 </template>
 
 <script>
-    import underconstruction from './components/underconstruction'
-    import { mapActions, mapGetters } from 'vuex'
-    export default {
-        name: 'app',
-        components: {
-            underconstruction,
-        },
-        created() {
-            this.SESSION_CHALLENGE()
-        },
-        methods: {
-            ...mapActions(['SESSION_CHALLENGE']),
-        },
-        computed: {
-            ...mapGetters(['isauthed'])
-        },
+import { mapActions, mapGetters } from 'vuex'
+import underconstruction from './components/underconstruction.vue'
 
-    }
+export default {
+  name: 'app',
+  components: {
+    underconstruction,
+  },
+  created() {
+    this.SESSION_CHALLENGE()
+  },
+  methods: {
+    ...mapActions(['SESSION_CHALLENGE']),
+  },
+  computed: {
+    ...mapGetters(['isauthed']),
+  },
+}
 </script>
 <style lang="sass" scoped>
     .god-div
         overflow-x: hidden !important
-
 </style>

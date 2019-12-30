@@ -14,14 +14,14 @@ router.post('/login', passport.authenticate('local-login', {
     failureFlash: true // allow flash messages
 }))
 // SIGNUP =============================
-// router.get('/signup', (req, res) => {
-//     res.render('signup.ejs', { message: req.flash('signupMessage') })
-// })
-// router.post('/signup', passport.authenticate('local-signup', {
-//     successRedirect: '/profile', // redirect to the secure profile section
-//     failureRedirect: '/signup', // redirect back to the signup page if there is an error
-//     failureFlash: true // allow flash messages
-// }))
+router.get('/signup', (req, res) => {
+    res.render('signup.ejs', { message: req.flash('signupMessage') })
+})
+router.post('/signup', passport.authenticate('local-signup', {
+    successRedirect: '/profile', // redirect to the secure profile section
+    failureRedirect: '/signup', // redirect back to the signup page if there is an error
+    failureFlash: true // allow flash messages
+}))
 // PROFILE =============================
 router.get('/profile', UTIL.isLoggedIn, (req, res) => {
     res.render('profile.ejs', {
