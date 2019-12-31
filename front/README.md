@@ -1,4 +1,4 @@
-# non-ts-front
+# ts-front
 
 ## Project setup
 ```
