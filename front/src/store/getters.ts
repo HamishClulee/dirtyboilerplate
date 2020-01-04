@@ -1,6 +1,8 @@
+import { State } from './state'
+
 const getters = {
-  windowwidth: state => state.window_width,
-  isauthed: state => state.isauthed,
+  windowwidth: (state: State) => state.windowwidth,
+  isauthed: (state: State) => state.isauthed,
 }
 
 export default getters
