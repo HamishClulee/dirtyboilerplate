@@ -3,7 +3,6 @@ extends ../layout
 block content
   .page-header
     h3 Sign up
-    hr
   form.form-horizontal(id='signup-form', method='POST')
     input(type='hidden', name='_csrf', value=_csrf)
     .form-group.row.justify-content-md-center
@@ -18,8 +17,8 @@ block content
       label.col-sm-3.col-form-label.text-right.font-weight-bold(for='confirmPassword') Confirm Password
       .col-sm-7
         input.form-control(type='password', name='confirmPassword', id='confirmPassword', placeholder='Confirm Password', required)
-    .form-group.row.justify-content-md-center
-      .offset-sm-3.col-sm-7
+    .form-group.row.justify-content-md-center.button-grouping
+      .offset-sm-3.col-sm-7.button-center
         button.btn.btn-success(type='submit')
           i.fa.fa-user-plus
           | Signup

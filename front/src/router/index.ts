@@ -13,11 +13,13 @@ const routes = [
     name: 'home',
     component: home,
     beforeEnter: (to: any, from: any, next: any) => {
+
       overwritemetas({
         title: 'create-mevn-app home page',
         description: 'Breif description of how the boilerplate functions',
         noindex: true,
       }, next)
+
     },
   },
   {
@@ -25,11 +27,13 @@ const routes = [
     name: 'notfound',
     component: notfound,
     beforeEnter: (to: any, from: any, next: any) => {
+
       overwritemetas({
         title: '',
         description: '',
         noindex: true,
       }, next)
+
     },
   },
 ]

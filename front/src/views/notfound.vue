@@ -8,15 +8,5 @@
 <script>
 export default {
   name: 'notfound',
-  data() {
-    return {
-    }
-  },
-  mounted() {
-  },
-  methods: {
-  },
-  computed: {
-  },
 }
 </script>
