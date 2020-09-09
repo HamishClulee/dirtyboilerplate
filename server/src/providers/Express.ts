@@ -139,8 +139,7 @@ class Express {
 					const tokenPayload = {
 						userid: _user._id,
 						email: _user.email,
-						role: _user.role,
-						subdom: _user.subdom
+						role: _user.role
 					}
 
 					const token = jwt.sign(tokenPayload, Env.get().tokenSecret, { expiresIn: `2 days` })
@@ -166,9 +165,9 @@ class Express {
 
 		this.app.get('*', express.static(path.join(__dirname, '../../dist/front-end')))
 
-		this.app.listen(PORT, (_error: any) => {
+		this.app.listen(PORT, () => {
 
-			if (_error) { return console.log('Error: ', _error) }
+			// if (_error) { return console.log('Error: ', _error) }
 
 			Log.info(
 				`Server :: Running @ ${process.env.NODE_ENV === 'production' ? PROD_URL : DEV_URL} :: in ${process.env.NODE_ENV} mode`

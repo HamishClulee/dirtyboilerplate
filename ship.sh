@@ -8,6 +8,7 @@ yarn build
 echo "---------------------- Building front. ---------------------------------------"
 cd ../front
 yarn build --fix --skip-plugin @vue/cli-plugin-pwa,pwa
+cd ..
 
 echo "---------------------- Copying static assets to /server/dist. ----------------"
 DATE=`date '+%Y-%m-%d %H:%M:%S'`

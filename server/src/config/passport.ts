@@ -1,6 +1,6 @@
 import * as passport from 'passport'
 import * as passportLocal from 'passport-local'
-import * as WelcomeEmail from '../resources/emails/welcome'
+// import * as WelcomeEmail from '../resources/emails/welcome'
 import _ from 'lodash'
 
 import * as mongoose from 'mongoose'
@@ -15,7 +15,7 @@ import Clean from '../middlewares/Clean'
 
 const LocalStrategy = passportLocal.Strategy
 
-const SendGrid = require('@sendgrid/mail')
+// const SendGrid = require('@sendgrid/mail')
 
 passport.serializeUser<any, any>((user, done) => {
 	done(null, user.id)
@@ -104,17 +104,17 @@ passport.use(new GoogleStrategy(
 
 					if (!err) {
 
-						/**
-						 * Send the Welcome to email to the new user
-						 */
-						SendGrid.setApiKey(Env.get().sendGridSecret)
+						// /**
+						//  * Send the Welcome to email to the new user
+						//  */
+						// SendGrid.setApiKey(Env.get().sendGridSecret)
 
-						SendGrid.send({
-							to: newUser.email,
-							from: 'noreply@welcomeqr.codes',
-							subject: 'A warm welcome from Welcome QR Codes',
-							html: WelcomeEmail.build(`${Env.get().baseUrl}/account?token=${token}`)
-						})
+						// SendGrid.send({
+						// 	to: newUser.email,
+						// 	from: 'noreply@welcomeqr.codes',
+						// 	subject: 'A warm welcome from Welcome QR Codes',
+						// 	html: WelcomeEmail.build(`${Env.get().baseUrl}/account?token=${token}`)
+						// })
 
 						return done(null, newUser)
 					} else {
