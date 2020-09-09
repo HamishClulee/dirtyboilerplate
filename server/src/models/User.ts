@@ -1,88 +1,87 @@
-import bcrypt from "bcrypt-nodejs";
-import crypto from "crypto";
-import mongoose from "mongoose";
+import * as bcrypt from 'bcrypt-nodejs'
+import * as mongoose from 'mongoose'
 
-export type UserDocument = mongoose.Document & {
-    email: string;
-    password: string;
-    passwordResetToken: string;
-    passwordResetExpires: Date;
-
-    facebook: string;
-    tokens: AuthToken[];
-
-    profile: {
-        name: string;
-        gender: string;
-        location: string;
-        website: string;
-        picture: string;
-    };
-
-    comparePassword: comparePasswordFunction;
-    gravatar: (size: number) => string;
-};
-
-type comparePasswordFunction = (candidatePassword: string, cb: (err: any, isMatch: any) => {}) => void;
-
-export interface AuthToken {
-    accessToken: string;
-    kind: string;
+// ----------------------------------------------------------------------------
+// TypeScript Defs ------------------------------------------------------------
+// ----------------------------------------------------------------------------
+enum Role {
+	Admin = 'ADMIN',
+	User = 'USER'
 }
 
+export type UserDocument = mongoose.Document & {
+	email: string;
+	password: string;
+	role: Role;
+	allowEmails: boolean;
+	emailVerified: boolean;
+	emailVerifyToken: string;
+	passwordResetToken: string;
+	comparePassword: comparePasswordFunction;
+}
+
+type comparePasswordFunction = (candidatePassword: string, cb: (err: any, isMatch: any) => {}) => void
+
+export interface AuthToken {
+	accessToken: string
+	kind: string
+}
+
+// ----------------------------------------------------------------------------
+// Mongoose Defs --------------------------------------------------------------
+// ----------------------------------------------------------------------------
 const userSchema = new mongoose.Schema({
-    email: { type: String, unique: true },
-    password: String,
-    passwordResetToken: String,
-    passwordResetExpires: Date,
+	email: { type: String, unique: true },
+	password: String,
+	passwordResetToken: String,
+	emailVerifyToken: String,
+	allowEmails: {
+		type: Boolean,
+		default: true
+	},
+	emailVerified: {
+		type: Boolean,
+		default: false
+	},
+	role: {
+		type: String,
+		enum: [ Role.Admin, Role.User ],
+		default: Role.User
+	}},
+	{ timestamps: true }
+)
 
-    facebook: String,
-    twitter: String,
-    google: String,
-    tokens: Array,
+userSchema.pre('save', function save(next) {
 
-    profile: {
-        name: String,
-        gender: String,
-        location: String,
-        website: String,
-        picture: String
-    }
-}, { timestamps: true });
+	const user = this as UserDocument
 
-/**
- * Password hash middleware.
- */
-userSchema.pre("save", function save(next) {
-    const user = this as UserDocument;
-    if (!user.isModified("password")) { return next(); }
-    bcrypt.genSalt(10, (err, salt) => {
-        if (err) { return next(err); }
-        bcrypt.hash(user.password, salt, undefined, (err: mongoose.Error, hash) => {
-            if (err) { return next(err); }
-            user.password = hash;
-            next();
-        });
-    });
-});
+	if (!user.isModified('password')) { return next() }
+
+	bcrypt.genSalt(10, (err, salt) => {
+
+		if (err) { return next(err) }
+
+		bcrypt.hash(user.password, salt, undefined, (err: mongoose.Error, hash) => {
+
+			if (err) { return next(err) }
+
+			user.password = hash
+
+			next()
+
+		})
+	})
+})
 
 const comparePassword: comparePasswordFunction = function (candidatePassword, cb) {
-    bcrypt.compare(candidatePassword, this.password, (err: mongoose.Error, isMatch: boolean) => {
-        cb(err, isMatch);
-    });
-};
 
-userSchema.methods.comparePassword = comparePassword;
+	bcrypt.compare(candidatePassword, this.password, (err: mongoose.Error, isMatch: boolean) => {
 
-/**
- * Helper method for getting user's gravatar.
- */
-userSchema.methods.gravatar = function (size: number = 200) {
-    if (!this.email) {
-        return `https://gravatar.com/avatar/?s=${size}&d=retro`;
-    }
-    const md5 = crypto.createHash("md5").update(this.email).digest("hex");
-    return `https://gravatar.com/avatar/${md5}?s=${size}&d=retro`;
-};
+		cb(err, isMatch)
 
-export const User = mongoose.model<UserDocument>("User", userSchema);
+	})
+}
+
+userSchema.methods.comparePassword = comparePassword
+
+export const User = mongoose.model<UserDocument>('User', userSchema)
