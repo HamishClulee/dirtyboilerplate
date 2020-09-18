@@ -102,11 +102,8 @@ class Express {
 
 		this.app.get('*', express.static(path.join(__dirname, '../../dist/front-end')))
 
-		this.app.listen(PORT, (_error: any) => {
-
-			if (_error) return console.log('Error: ', _error)
-
-			return console.log('\x1b[33m%s\x1b[0m', `Server :: Running @ 'http://localhost:${PORT}' :: in ${process.env.NODE_ENV} mode`)
+		this.app.listen(PORT, () => {
+			return console.log(`Server :: Running @ 'http://localhost:${PORT}' :: in ${process.env.NODE_ENV} mode`)
 		})
 	}
 }

@@ -5,12 +5,10 @@ import router from './router'
 import store from './store'
 import { QAuth } from './api/auth'
 import { QAdmin } from './api/admin'
-import { QEdit } from '../../shared/api/editor'
 
 Vue.config.productionTip = false
 
 Vue.prototype.$QAdmin = new QAdmin()
-Vue.prototype.$QEdit = new QEdit()
 
 /* eslint-disable no-console */
 Vue.config.errorHandler = (error, vm, info) => {

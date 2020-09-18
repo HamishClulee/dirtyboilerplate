@@ -1,17 +1,17 @@
 export const gettoken = (): string => {
-    let token = localStorage.getItem('QToken')
+    let token = localStorage.getItem('AuthToken')
     return token ? token : ''
 }
 
 export const settoken = (token: string): void => {
-    localStorage.setItem('QToken', token)
+    localStorage.setItem('AuthToken', token)
 }
 
 export const removetoken = (): void => {
-    localStorage.setItem('QToken', '')
+    localStorage.setItem('AuthToken', '')
 }
 
 export const checktoken = (): Boolean => {
-    return !!localStorage.getItem('QToken') && localStorage.getItem('QToken') !== ''
+    return !!localStorage.getItem('AuthToken') && localStorage.getItem('AuthToken') !== ''
 }
 

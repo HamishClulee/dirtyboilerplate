@@ -5,11 +5,11 @@ import { EventBus, MESSAGES, welcomeback } from '../EventBus'
 
 import { settoken, removetoken } from './token'
 
-axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('QToken')}`
+axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('AuthToken')}`
 
 export class QAuth {
 
-    private DEV_SERV = 'http://localhost:1980'
+    private DEV_SERV = 'http://localhost:2900'
     private DEV_CLIENT = 'http://localhost:8080'
     private PROD_BASE = 'https://welcomeqr.codes'
 
@@ -27,12 +27,12 @@ export class QAuth {
             baseURL: this.BASE_URL,
             withCredentials: true,
             headers: {
-                Authorization  : `Bearer ${localStorage.getItem('QToken')}`,
+                Authorization  : `Bearer ${localStorage.getItem('AuthToken')}`,
             },
         })
 
         axios.interceptors.request.use(config => {
-            config.headers.common['Authorization'] = `Bearer ${localStorage.getItem('QToken')}`
+            config.headers.common['Authorization'] = `Bearer ${localStorage.getItem('AuthToken')}`
             return config
         }, (error) => {
             return Promise.reject(error)

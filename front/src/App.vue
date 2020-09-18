@@ -37,7 +37,7 @@
 
 <script>
 import navbar from './components/nav/navbar'
-import qrfooter from './components/qrfooter'
+import qrfooter from './components/nav/qrfooter'
 import usermessages from './components/usermessages'
 import loading from './components/loading'
 import debounce from './utils/functions'

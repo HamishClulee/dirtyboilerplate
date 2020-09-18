@@ -11,7 +11,6 @@ interface AuthResponse {
 	email: string | null,
 	id: string | null,
 	authed: boolean,
-	subdom: string | null,
 	role: string | null,
 	tier: string | null,
 	token: string | null,
@@ -80,7 +79,6 @@ const Clean = {
 			email: null,
 			id: null,
 			authed: false,
-			subdom: null,
 			role: null,
 			tier: null,
 			token: null
@@ -94,14 +92,12 @@ const Clean = {
 			email: user.email,
 			id: user._id,
 			authed: true,
-			subdom: user.subdom,
 			role: user.role,
 			tier: user.accountTier,
 			token: generateAccessToken({
 				userid: user._id,
 				email: user.email,
-				role: user.role,
-				subdom: user.subdom
+				role: user.role
 			})
 		}
 
@@ -113,14 +109,12 @@ const Clean = {
 			email: user.email,
 			id: user._id,
 			authed: true,
-			subdom: user.subdom,
 			role: user.role,
 			tier: user.accountTier,
 			token: generateAccessToken({
 				userid: user._id,
 				email: user.email,
-				role: user.role,
-				subdom: user.subdom
+				role: user.role
 			}),
 			allowsemails: user.allowEmails,
 			isemailverified: user.emailVerified

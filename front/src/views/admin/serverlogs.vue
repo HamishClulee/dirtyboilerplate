@@ -84,8 +84,9 @@ import {
     EventBus,
     MESSAGES,
     NEED_TO_BE_LOGGED_IN,
+    LOADING,
 } from '../../EventBus'
-import { LOADING } from '../../../../subdoms-app/src/EventBus'
+
 export default {
     name: 'serverlogs',
     components: {

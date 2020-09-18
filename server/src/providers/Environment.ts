@@ -40,7 +40,6 @@ class Env {
 			tokenSecret,
 			logDays,
 			mongooseUrl,
-			name,
 			port,
 			redisDB,
 			redisHttpPort,

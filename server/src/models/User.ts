@@ -1,8 +1,5 @@
 import * as bcrypt from 'bcrypt-nodejs'
 import * as mongoose from 'mongoose'
-import { EditorDocument } from './Editor'
-
-import Log from '../middlewares/Log'
 
 // ----------------------------------------------------------------------------
 // TypeScript Defs ------------------------------------------------------------
@@ -27,17 +24,10 @@ export type UserDocument = mongoose.Document & {
 	emailVerified: boolean;
 	emailVerifyToken: string;
 	passwordResetToken: string;
-	subdom: string | null;
-	editors: EditorDocument[];
 	comparePassword: comparePasswordFunction;
 }
 
 type comparePasswordFunction = (candidatePassword: string, cb: (err: any, isMatch: any) => {}) => void
-
-export interface AuthToken {
-	accessToken: string
-	kind: string
-}
 
 // ----------------------------------------------------------------------------
 // Mongoose Defs --------------------------------------------------------------
@@ -64,9 +54,7 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		enum: [ Role.Admin, Role.User ],
 		default: Role.User
-	},
-	subdom: { type: String || null, default: null },
-	editors: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Editor' }]}, { timestamps: true }
+	}}, { timestamps: true }
 )
 
 userSchema.pre('save', function save(next) {
@@ -80,15 +68,15 @@ userSchema.pre('save', function save(next) {
 		user.emailVerifyToken = token ? token : null
 	}
 
-	if (!user.isModified('password')) { return next() }
+	if (!user.isModified('password')) return next()
 
 	bcrypt.genSalt(10, (err, salt) => {
 
-		if (err) { return next(err) }
+		if (err) return next(err)
 
 		bcrypt.hash(user.password, salt, undefined, (err: mongoose.Error, hash) => {
 
-			if (err) { return next(err) }
+			if (err) return next(err)
 
 			user.password = hash
 

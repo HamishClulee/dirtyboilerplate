@@ -3,78 +3,46 @@
 
         <displaysection sassclass="white">
 
-            <div class="landing-con">
-                <object id="qr-svg" type="image/svg+xml" data="/svg/qrcode.svg"></object>
-        
-                <div class="heading-con">
-                    <h1 class="main-h1" :class="showheading ? 'fadein' : 'hidden'">Don't waste your time with welcome booklets!</h1>
-                    <object :class="showtext ? 'fadein' : 'hidden'" id="text-svg" type="image/svg+xml" data="/svg/text.svg"></object>
-                </div>
-            </div>
-
-            <footer class="construction-foot layout-col layout-center-all" @click="scrollDown">
-                <div class="icon-backer" @click.stop="scrollDown"></div>
-                <h6 @click.stop="scrollDown" class="h6">FIND OUT WHY!</h6>
-            </footer>
+            <h1>Welcome to Create Mevn App</h1>
 
         </displaysection>
 
         <displaysection id="srcoll-pop" sassclass="primary">
 
-            <h1 class="h1">Welcome QR is the perfect solution for Airbnb and Holiday accommodation providers.</h1>
-            <h2 class="h2">
-                Printing a physical welcome book for your guests is expensive, time consuming
-                and error prone. Books become untidy over time and require a reprint even for small changes.
-                There is a better solution - Choose WelcomeQR.
-            </h2>
+            <h1 class="h1">Check out the /admin and /account sections</h1>
             <ctabutton text="try it for free" :do="ctaroute"></ctabutton>
 
         </displaysection>
 
         <displaysection sassclass="secondary">
             <p>
-                We provide you with eveything you need; an awesome online editor and easily downloadable files.
-                Your guests simply scan the QR we provide and are directed to your fully customisable web site.
-                Want to make a change? It'll only take a few seconds, literally!
+                Auth is all taken care of, as well as password resets and email verification.
             </p>
             <h1 class="h1">
-                We know your life is busy, and we know that saving time and increasing value is the 
-                way to success in your industry!
+                Hopefully this makes life easier!
             </h1>
             <ctabutton text="try it for free" :do="ctaroute"></ctabutton>
         </displaysection>
 
         <displaysection sassclass="tertiary">
             <p>
-                Welcome QR gives you the competitive edge over the Airbnb next door, still 
-                using ancient technology!
+                blah
             </p>
             <p>
-                While they are still providing the same Welcome book they printed years ago, 
-                you have updated your website with the latest info about the area or about new offers with your partner 
-                businesses.
+                blah
             </p>
             <p>
-                Want to inform guests of up-coming events or upload different welcome text containing 
-                seasonal information?
+                blah?
             </p>
             <h1 class="h1">
-                Have the freedom to create and delete things at will, never use the printers again!
+                Do the thing!
             </h1>
             <ctabutton text="try it for free" :do="ctaroute"></ctabutton>
         </displaysection>
 
         <displaysection sassclass="highlight">
             <p>
-                Our online editor can be used from your mobile or desktop, and provides you with a 
-                large amount of freedom to make your content appear as you want it.
-                <ul>
-                    <li><span class="tilde">~</span>Upload images and video</li>
-                    <li><span class="tilde">~</span>Make multiple pages</li>
-                    <li><span class="tilde">~</span>Use your brand colors and logo</li>
-                    <li><span class="tilde">~</span>Insert Maps</li>
-                    <li><span class="tilde">~</span>Link to locations or websites</li>
-                </ul>
+                Lots of words...
             </p>
             <ctabutton text="try it for free" :do="ctaroute"></ctabutton>
         </displaysection>
@@ -85,46 +53,11 @@
 <script>
 import displaysection from '../components/displaysection'
 import ctabutton from '../components/buttons/ctabutton'
-import Vivus from 'vivus'
 export default {
     name: 'home',
     components: {
         displaysection,
         ctabutton,
-    },
-    data () {
-
-        return {
-            showtext: false,
-            showheading: false,
-            qrviv: null,
-            textviv: null,
-            qrtime: null,
-            texttime: null,
-        }
-
-    },
-    mounted () {
-    /*  
-        this block manages the animations seen at the top of the home route
-        Two time outs to manage the timing of the animations, two animations
-        one for the qr code svg, one for the sub text svg
-    */
-        this.qrviv = new Vivus('qr-svg', {
-            type: 'delayed',
-            duration: 800,
-            animTimingFunction: Vivus.EASE_IN,
-        }, () => { /* fires at completed */ })
-        this.qrtime = setTimeout(() => this.showheading = true, 1500)
-        this.texttime = setTimeout(() => {
-            this.showtext = true
-            this.textviv = new Vivus('text-svg',   {
-                type: 'sync',
-                duration: 100,
-            }, () => { /* fires at completed */ })
-        }, 3000)
-
-        /* END */
     },
     methods: {
         ctaroute () { this.$router.push({name: 'manage'}) },
@@ -134,10 +67,6 @@ export default {
                 alignToTop: true, behavior: 'smooth',
             })
         },
-    },
-    beforeDestroy() {
-        clearTimeout(this.qrtime)
-        clearTimeout(this.texttime)
     },
 }
 </script>

@@ -69,8 +69,7 @@ export const setAuthRoutes = (app: express.Application): void => {
 			const tokenPayload = {
 				userid: _user._id,
 				email: _user.email,
-				role: _user.role,
-				subdom: _user.subdom
+				role: _user.role
 			}
 
 			const token = jwt.sign(tokenPayload, Env.get().tokenSecret, { expiresIn: `2 days` })

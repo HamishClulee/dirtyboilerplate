@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve:main": "vue-cli-service serve --fix main-app/src/main.ts",
-    "build:main": "vue-cli-service build main-app/src/main.ts"
+    "serve": "vue-cli-service serve --fix main-app/src/main.ts",
+    "build": "vue-cli-service build main-app/src/main.ts"
   },
   "dependencies": {
     "axios": "^0.19.0",

@@ -200,7 +200,7 @@ const router = new VueRouter({
 
 const tokenOk = () => {
 
-    return !!localStorage.getItem('QToken') && localStorage.getItem('QToken') !== ''
+    return !!localStorage.getItem('AuthToken') && localStorage.getItem('AuthToken') !== ''
 
 }
 
