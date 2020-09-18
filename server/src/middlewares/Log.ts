@@ -18,52 +18,57 @@ class Log {
 	public today: Date = new Date()
 
 	constructor() {
-		let _dateString = `${this.today.getFullYear()}-${('0' + (this.today.getMonth() + 1)).slice(-2)}-${('0' + this.today.getDate()).slice(-2)}`
-		let _timeString = `${this.today.getHours()}:${this.today.getMinutes()}:${this.today.getSeconds()}`
+
+		let _dateString = `${this.today.getFullYear()}-${this.ensureTwoDigits(this.today.getMonth(), true)}-${this.ensureTwoDigits(this.today.getDate())}`
+
+		let _timeString = `${this.ensureTwoDigits(this.today.getHours())}:${this.ensureTwoDigits(this.today.getMinutes())}:${this.ensureTwoDigits(this.today.getSeconds())}`
+
 		this.baseDir = path.join(__dirname, '../../.logs/')
 		this.fileName = `${_dateString}.log`
-		this.linePrefix = `[${_dateString} ${_timeString}]`
+		this.linePrefix = `${_timeString}`
+	}
+
+	private ensureTwoDigits(term: number, offset = false): string {
+		term = offset ? (term + 1) : term
+		return ('0' + term).slice(-2)
+	}
+
+	public client(category: string, _string: string, tags: string[] = []): void {
+		this.addLog('CLIENT', category, _string, tags)
 	}
 
 	// Adds INFO prefix string to the log string
-	public info (_string: string, tags: string[] = []): void {
-		this.addLog('INFO', _string, tags)
+	public info (category: string, _string: string, tags: string[] = []): void {
+		this.addLog('INFO', category, _string, tags)
 	}
 
 	// Adds WARN prefix string to the log string
-	public warn (_string: string, tags: string[] = []): void {
-		this.addLog('WARN', _string, tags)
+	public warn (category: string, _string: string, tags: string[] = []): void {
+		this.addLog('WARN', category, _string, tags)
 	}
 
 	// Adds ERROR prefix string to the log string
-	public error (_string: string, tags: string[] = []): void {
+	public error (category: string, _string: string, tags: string[] = []): void {
 		// Line break and show the first line
-		console.log('\x1b[31m%s\x1b[0m', '[ERROR] :: ' + _string.split(/r?\n/)[0])
+		// console.log('\x1b[31m%s\x1b[0m', '[ERROR] :: ' + _string.split(/r?\n/)[0])
 
-		this.addLog('ERROR', _string)
-	}
-
-	// Adds the custom prefix string to the log string
-	public custom (_filename: string, _string: string): void {
-		this.addLog(_filename, _string)
+		this.addLog('ERROR', category, _string, tags)
 	}
 
 	/**
 	 * Creates the file if does not exist, and
 	 * append the log kind & string into the file.
 	 */
-	private addLog (_kind: string, _string: string, tags: string[] = []): void {
-
-		if (process.env.NODE_ENV === 'development') { console.log(_string) }
+	private addLog (_level: string, _category: string, _string: string, tags: string[] = []): void {
 
 		const _that = this
-		_kind = _kind.toUpperCase()
+		_level = _level.toUpperCase()
 
 		const addTags = () => {
 			let result = ''
 			if (tags) {
 				tags.forEach(tag => {
-					result += `[${tag}] `
+					result += `{~{ ${tag} }~} `
 				})
 			}
 			return result
@@ -71,8 +76,12 @@ class Log {
 
 		fs.open(`${_that.baseDir}${_that.fileName}`, 'a', (_err, _fileDescriptor) => {
 			if (!_err && _fileDescriptor) {
+
+				// in dev only, used for debugging
+				// if (process.env.NODE_ENV === 'development') { console.log(`[[${_that.linePrefix}]] [[${_level}]] [[${_category}]] [[${_string}]] [[${addTags()}]] \n\n`) }
+
 				// Append to file and close it
-				fs.appendFile(_fileDescriptor, `${_that.linePrefix} [${_kind}] ${addTags()}${_string}\n`, (_err) => {
+				fs.appendFile(_fileDescriptor, `${_that.linePrefix}~~${_level}~~${_category}~~${addTags()}~~${_string} \n`, (_err) => {
 					if (! _err) {
 						fs.close(_fileDescriptor, (_err) => {
 							if (! _err) {

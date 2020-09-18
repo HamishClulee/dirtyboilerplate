@@ -1,6 +1,6 @@
 import * as passport from 'passport'
 import * as passportLocal from 'passport-local'
-// import * as WelcomeEmail from '../resources/emails/welcome'
+import * as WelcomeEmail from '../resources/emails/welcome'
 import _ from 'lodash'
 
 import * as mongoose from 'mongoose'
@@ -12,22 +12,22 @@ import { User, UserDocument } from '../models/User'
 import { IRequest, IResponse, INext } from '../interfaces'
 import Log from '../middlewares/Log'
 import Clean from '../middlewares/Clean'
+import { readBufferWithDetectedEncoding } from 'tslint/lib/utils'
 
 const LocalStrategy = passportLocal.Strategy
 
-// const SendGrid = require('@sendgrid/mail')
+const SendGrid = require('@sendgrid/mail')
 
 passport.serializeUser<any, any>((user, done) => {
 	done(null, user.id)
 })
 
 passport.deserializeUser<any, any>((id, done) => {
-	if (mongoose.Types.ObjectId.isValid(id)) {
-		User.findById(id, (err, user) => {
-			done(err, user)
-		})
-	} else {
-		console.log('saved new user !')
+
+	if (mongoose.Types.ObjectId.isValid(id)) User.findById(id, (err, user) => { done(err, user) })
+
+	else {
+
 		const _user = new User()
 		_user.save()
 	}
@@ -37,22 +37,15 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, (email, password, don
 
 	User.findOne({ email: email.toLowerCase() }, (err, user: any) => {
 
-		if (err) { return done(err, null) }
+		if (err) return done(err, null)
 
-		if (!user) {
-
-			return done(undefined, false, { message: `Email ${email} not found.` })
-		}
+		if (!user) return done(undefined, false, { message: `Email ${email} not found.` })
 
 		user.comparePassword(password, (err: Error, isMatch: boolean) => {
 
-			if (err) { return done(err, null) }
+			if (err) return done(err, null)
 
-			if (isMatch) {
-
-				Log.error(`[passport.use(new LocalStrategy] calling done == value of user ==> ${JSON.stringify(user || '** no user here **')}`)
-				return done(null, user)
-			}
+			if (isMatch) return done(null, user)
 
 			return done(null, null, { message: 'Invalid email or password.' })
 		})
@@ -81,18 +74,13 @@ passport.use(new GoogleStrategy(
 
 		User.findOne({ email: profile.emails[0].value }, (err, existingUser) => {
 
-			if (!err && existingUser) {
+			// User exists, return it
+			if (!err && existingUser) return done(false, existingUser)
 
-				/**
-				 * User exists, return it
-				 */
-				return done(false, existingUser)
+			// No User, create one
+			else if (!err && !existingUser) {
 
-			} else if (!err && !existingUser) {
-
-				const token = require('crypto').randomBytes(48, (err, buffer) => {
-					return buffer.toString('hex')
-				})
+				const token = require('crypto').randomBytes(Math.ceil(64 / 2)).toString('hex')
 
 				const newUser: UserDocument = new User({
 					email: profile.emails[0].value,
@@ -104,30 +92,25 @@ passport.use(new GoogleStrategy(
 
 					if (!err) {
 
-						// /**
-						//  * Send the Welcome to email to the new user
-						//  */
-						// SendGrid.setApiKey(Env.get().sendGridSecret)
+						/**
+						 * Send the Welcome to email to the new user
+						 */
+						SendGrid.setApiKey(Env.get().sendGridSecret)
 
-						// SendGrid.send({
-						// 	to: newUser.email,
-						// 	from: 'noreply@welcomeqr.codes',
-						// 	subject: 'A warm welcome from Welcome QR Codes',
-						// 	html: WelcomeEmail.build(`${Env.get().baseUrl}/account?token=${token}`)
-						// })
+						SendGrid.send({
+							to: newUser.email,
+							from: 'noreply@welcomeqr.codes',
+							subject: 'A warm welcome from Welcome QR Codes',
+							html: WelcomeEmail.build(`${Env.get().baseUrl}/account?token=${token}`)
+						})
 
 						return done(null, newUser)
-					} else {
-						return done(err, null)
-					}
+
+					} else return done(err, null)
 
 				})
 
-			} else {
-
-				return done(err, null)
-
-			}
+			} else return done(err, null)
 		})
 	})
 )
@@ -138,53 +121,42 @@ export const isReqAllowed = (req: IRequest, res: IResponse, next: INext) => {
 
 	const token = authHeader && authHeader.split(' ')[1]
 
-	Log.info(`[isReqAllowed] value of req.isAuthenticated ==> ${req.isAuthenticated()}`)
+	// No token exists but a session does exist
+	// => grant user a token
+	if (token == null && req.isAuthenticated()) next()
 
-	Log.info(`[isReqAllowed] value of req.session ${JSON.stringify(req.session || 'req-session doesnt exist')}`)
+	// No session, No Token
+	// => deny/kill user
+	else if (token === null && !req.isAuthenticated()) return Clean.deny(res, 403, 'token === null && !req.isAuthenticated()')
 
-	Log.info(`[isReqAllowed] value of token ==> ${token ? token : '** no token exists **'}`)
+	// session and token exist
+	// => verify token
+	else if (token && req.isAuthenticated()) jwt.verify(token, Env.get().tokenSecret, (err: any, user: any) => {
+		if (err) return Clean.deny(res, 403, 'token && req.isAuthenticated()')
+		else next()
+	})
 
-	Log.info(`[isReqAllowed] value of req.user ==> ${JSON.stringify(req.user ? req.user : 'req.user doesnt exist')}`)
-
-	if (token == null && req.isAuthenticated()) {
-
-		// No token exists but a session does exist
-		// => grant user a token
-		next()
-
-	} else if (token === null && !req.isAuthenticated()) {
-
-		// No session, No Token
-		// => deny/kill user
-
-		return Clean.deny(res, 403, 'token === null && !req.isAuthenticated()')
-
-	} else if (token && req.isAuthenticated()) {
-
-		// session and token exist
-		// => verify token
-
-		jwt.verify(token, Env.get().tokenSecret, (err: any, user: any) => {
-
-			if (err) {
-
-				return Clean.deny(res, 403, 'token && req.isAuthenticated()')
-
-			} else {
-
-				next()
-
-			}
-
-		})
-
-	} else {
-
-		return Clean.deny(res, 403, 'From else in isReqAllowed')
-
-	}
+	// No session no token no user
+	// => deny
+	else return Clean.deny(res, 403, 'No session, no token, no user')
 }
 
 export const isAuthenticated = (req: IRequest, res: IResponse, next: INext) => {
-	if (req.isAuthenticated()) { return next() } else { res.redirect('/?authRedirect=true') }
+
+	if (req.isAuthenticated()) return next()
+	else res.redirect('/?authRedirect=true')
+
+}
+
+export const isAdmin = async (req: IRequest, res: IResponse, next: INext) => {
+
+	if (req.isAuthenticated()) {
+
+		const user = await User.findOne({ _id: req.user })
+
+		if (user && user.role === 'ADMIN') next()
+
+		else return Clean.deny(res, 406, 'Admin user not found')
+
+	} else return Clean.deny(res, 406, 'Final block in isAdmin.')
 }

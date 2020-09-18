@@ -17,7 +17,7 @@ class Queue {
 		})
 
 		this.jobs
-			.on('job enqueue', (_id, _type) => Log.info(`Queue :: #${_id} Processing of type '${_type}'`))
+			.on('job enqueue', (_id, _type) => { /* nothing worth logging here yet */ })
 			.on('job complete', (_id) => this.removeProcessedJob(_id))
 	}
 
@@ -28,15 +28,12 @@ class Queue {
 	}
 
 	private removeProcessedJob (_id): void {
-		Log.info(`Queue :: #${_id} Processed`)
 
 		kue.Job.get(_id, (_err, _job) => {
 			if (_err) { return }
 
 			_job.remove((_err) => {
 				if (_err) { throw _err }
-
-				Log.info(`Queue :: #${_id} Removed Processed Job`)
 			})
 		})
 	}

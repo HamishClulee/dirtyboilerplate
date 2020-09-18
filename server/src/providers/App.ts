@@ -12,21 +12,15 @@ class App {
 
 	public loadConfiguration (): void {
 
-		Log.info('Configuration :: Booting @ Master...')
-
 		dotenv.config({ path: path.join(__dirname, '../../.env') })
 	}
 
 	public loadDatabase (): void {
 
-		Log.info('Database :: Booting @ Master...')
-
 		Database.init()
 	}
 
 	public loadServer (): void {
-
-		Log.info('Server :: Booting @ Master...')
 
 		Express.init()
 	}

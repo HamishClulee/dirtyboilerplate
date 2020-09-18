@@ -1,9 +1,14 @@
 $primary: #F57C00
 $secondary: #009688
 $tertiary: #F44336
-$highlight: #FFC107
+$highlight: #f4a236
 $link: #1976D2
 $font: #212121
+
+$dark-gray: #696969	
+$medium-gray: #A9A9A9
+$light-gray: #D3D3D3
+$very-light-gray: #F4F4F4
 
 $primary-light: lighten($primary, 10)
 $primary-dark: darken($primary, 20)
@@ -24,21 +29,39 @@ $h4-fontsize: 2rem !default
 $h5-fontsize: 1.4rem !default
 $h6-fontsize: 1rem !default
 
-$heading-font: 'Open Sans', sans-serif
-$body-font: 'Montserrat', sans-serif
+$heading-font: 'Montserrat Alternates', sans-serif
+$body-font: 'Open Sans Condensed', sans-serif
 
 body
-    font-family: $body-font
     color: $font
     padding: 0
     margin: 0
+    font-family: sans-serif
+    width: 100%
 
 html
     line-height: 1.5
-    font-family: $heading-font
     color: $font-dark
     font-weight: normal
 
+
 @import "typography"
 @import "button"
+@import "editor"
+@import "transitions"
+@import "containers"
+@import "flexhelp"
+
+:export
+    primary: $primary
+    secondary: $secondary
+    tertiary: $tertiary
+    highlight: $highlight
+    link: $link
+    font: $font
+    darkgray: $dark-gray
+    mediumgray: $medium-gray
+    light-gray: $light-gray
+    verylightgray: $very-light-gray
+
 

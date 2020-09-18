@@ -1,0 +1,17 @@
+"serve:main": "env VUE_CLI_SERVICE_CONFIG_PATH=./vue.config.main.js vue-cli-service serve main-app/src/main.ts",
+
+  "scripts": {
+
+    "serve:main": "env VUE_CLI_SERVICE_CONFIG_PATH=\"$PWD/vue.config.main.js\" vue-cli-service serve --port 8080 main-app/src/main.ts --fix --skip-plugin @vue/cli-plugin-pwa,pwa --dest main-app/dist",
+    "build:main": "env VUE_CLI_SERVICE_CONFIG_PATH=\"$PWD/vue.config.main.js\" vue-cli-service build --dest main-app/dist main-app/src/main.ts",
+
+    "serve:subdoms": "env VUE_CLI_SERVICE_CONFIG_PATH=\"$PWD/vue.config.subdoms.js\" vue-cli-service serve --port 7070 subdoms-app/src/main.ts",
+    "build:subdoms": "env VUE_CLI_SERVICE_CONFIG_PATH=\"$PWD/vue.config.subdoms.js\" vue-cli-service build --dest subdoms-app/dist subdoms-app/src/main.ts --fix --skip-plugin @vue/cli-plugin-pwa,pwa"
+
+  },
+
+  // local
+  db.users.findOneAndUpdate({ "_id" : ObjectId("5f5d8a2d62eb6339d17155c1") }, { $set: {"role": "ADMIN" } })
+  // mats
+  db.users.findOneAndUpdate({ "_id" : ObjectId("5f5d8d0d145b005c281a279f") }, { $set: {"role": "ADMIN" } })
+  

@@ -1,5 +1,8 @@
 import * as bcrypt from 'bcrypt-nodejs'
 import * as mongoose from 'mongoose'
+import { EditorDocument } from './Editor'
+
+import Log from '../middlewares/Log'
 
 // ----------------------------------------------------------------------------
 // TypeScript Defs ------------------------------------------------------------
@@ -9,14 +12,23 @@ enum Role {
 	User = 'USER'
 }
 
+enum AccountTier {
+	Free = 'FREE',
+	Paid = 'PAID',
+	Premium = 'PREMIUM'
+}
+
 export type UserDocument = mongoose.Document & {
 	email: string;
 	password: string;
+	accountTier: AccountTier;
 	role: Role;
 	allowEmails: boolean;
 	emailVerified: boolean;
 	emailVerifyToken: string;
 	passwordResetToken: string;
+	subdom: string | null;
+	editors: EditorDocument[];
 	comparePassword: comparePasswordFunction;
 }
 
@@ -33,6 +45,11 @@ export interface AuthToken {
 const userSchema = new mongoose.Schema({
 	email: { type: String, unique: true },
 	password: String,
+	accountTier: {
+		type: String,
+		enum: [ AccountTier.Free, AccountTier.Paid, AccountTier.Premium ],
+		default: AccountTier.Free
+	},
 	passwordResetToken: String,
 	emailVerifyToken: String,
 	allowEmails: {
@@ -47,13 +64,21 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		enum: [ Role.Admin, Role.User ],
 		default: Role.User
-	}},
-	{ timestamps: true }
+	},
+	subdom: { type: String || null, default: null },
+	editors: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Editor' }]}, { timestamps: true }
 )
 
 userSchema.pre('save', function save(next) {
 
 	const user = this as UserDocument
+
+	if (!user.emailVerifyToken) {
+
+		const token = require('crypto').randomBytes(Math.ceil(64 / 2)).toString('hex')
+
+		user.emailVerifyToken = token ? token : null
+	}
 
 	if (!user.isModified('password')) { return next() }
 

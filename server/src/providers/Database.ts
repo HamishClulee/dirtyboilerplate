@@ -16,12 +16,12 @@ export class Database {
 		mongoose.set('useFindAndModify', false)
 
 		mongoose.connect(dsn, options, (error: MongoError) => {
+
 			if (error) {
-				Log.info('Failed to connect to the Mongo server!!')
+				Log.error(`DataBaseError`, `Failed to connect to the Mongo server!!`)
 				throw error
-			} else {
-				Log.info('connected to mongo server at: ' + dsn)
 			}
+
 		})
 	}
 }
