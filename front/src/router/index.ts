@@ -7,8 +7,9 @@ const home = () => import('../views/home.vue')
 /** Admin routes */
 const adminmain = () => import('../views/admin/adminmain.vue')
 const serverlogs = () => import('../views/admin/serverlogs.vue')
-// const userreports = () => import('../views/admin/userreports.vue')
 
+/** Protected application routes */
+const authed = () => import('../views/authed.vue')
 
 /** Auth routes */
 const auth = () => import('../views/auth.vue')
@@ -169,6 +170,21 @@ const routes = [
                 },
             },
         ],
+    },
+    // -------------------------------------------------------------------
+    // --------------------------- APPLICATION
+    // -------------------------------------------------------------------\
+    {
+        path: '/authed',
+        name: 'authed',
+        component: authed,
+        beforeEnter: (to: any, from: any, next: any) => {
+            overwritemetas({
+                title: 'Login ~ Signup',
+                description: `Login and Signup here!`,
+                index: true,
+            }, next)
+        },
     },
     // -------------------------------------------------------------------
     // --------------------------- PLUMBING

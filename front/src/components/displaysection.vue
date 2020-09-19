@@ -41,7 +41,7 @@ export default {
     color: white
 .tertiary
     background-color: $tertiary
-    color: white
+    color: $font
 .highlight
     background-color: $highlight
     color: white

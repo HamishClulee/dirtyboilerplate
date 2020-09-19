@@ -1,5 +1,5 @@
 <template>
-  <button class="button button-flat cta-button-home" @click="donow">{{ text }}</button>
+  <button class="button button-flat cta-button-home" :class="{ 'make-dark': isDark }" @click="donow">{{ text }}</button>
 </template>
 
 <script>
@@ -14,6 +14,11 @@ export default {
             required: true,
             type: Function,
         },
+        isDark: {
+            required: false,
+            default: false,
+            type: Boolean,
+        },
     },
     methods: {
         donow () {
@@ -25,4 +30,8 @@ export default {
 }
 </script>
 
-<style scoped lang="sass"></style>
+<style scoped lang="sass">
+.make-dark
+    border: 1px solid $font !important
+    color: $font !important
+</style>

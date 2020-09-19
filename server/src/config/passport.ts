@@ -55,13 +55,11 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, (email, password, don
 
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
 
-const url = process.env.NODE_ENV === 'production' ? 'https://welcomeqr.codes' : 'http://localhost:1980'
-
 passport.use(new GoogleStrategy(
 	{
 		clientID: Env.get().googleClientId,
 		clientSecret: Env.get().googleSecret,
-		callbackURL: `${url}/auth/google/callback`
+		callbackURL: `${Env.get().baseUrl}/auth/google/callback`
 	},
 	async (req: any, accessToken: any, refreshToken: any, profile: any, done: any) => {
 

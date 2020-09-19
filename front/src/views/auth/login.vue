@@ -144,7 +144,7 @@ export default {
 
                 EventBus.$emit(MESSAGES, alreadyloggedinas(res.data.user.email))
 
-                this.$router.push({ path: '/app/manage' })
+                this.$router.push({ path: '/authed' })
 
             }
         },
@@ -153,7 +153,7 @@ export default {
         buildLink() {
 
             return process.env.NODE_ENV === 'development' ?
-                'http://localhost:1980/auth/google' :
+                'http://localhost:2900/auth/google' :
                 '/auth/google'
         },
         validated() {

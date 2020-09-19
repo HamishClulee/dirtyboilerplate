@@ -2,18 +2,18 @@
     <footer class="qr-footer">
         <figure class="logo-container">
             <img
-                src="/svg/largelogo.svg"
-                alt="Welcome QR logo"
+                src="/images/createmevn-logo.svg"
+                alt="Create Mevn Logo"
                 width="100%"
             />
         </figure>
         <div class="tilde-spacer">~</div>
         <div class="text-container">
-            <h4 class="h4">Welcome QR Codes</h4>
+            <h4 class="h4">Create MEVN App</h4>
         </div>
         <div class="tilde-spacer">~</div>
         <div class="text-container sub">
-            <h4 class="h4">Be modern</h4>
+            <h4 class="h4">Make Life Easy</h4>
         </div>
     </footer>
 </template>

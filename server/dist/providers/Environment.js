@@ -9,13 +9,13 @@ class Env {
         const prodUrl = process.env.PROD_URL;
         const devUrl = process.env.DEV_URL;
         const baseUrl = process.env.NODE_ENV === 'production' ? prodUrl : devUrl;
-        const port = process.env.PORT || 1980;
-        const appSecret = process.env.APP_SECRET || 'This is your responsibility!';
+        const port = process.env.PORT;
         const mongooseUrl = process.env.MONGOOSE_URL;
         const googleClientId = process.env.GOOGLE_ID;
         const googleSecret = process.env.GOOGLE_SECRET;
         const tokenSecret = process.env.TOKEN_SECRET;
         const sendGridSecret = process.env.SENDGRID_API_KEY;
+        const sessionSecret = process.env.SESSION_SECRET;
         const logDays = process.env.LOG_DAYS || 10;
         const queueMonitor = process.env.QUEUE_HTTP_ENABLED || true;
         const queueMonitorHttpPort = process.env.QUEUE_HTTP_PORT || 5550;
@@ -29,8 +29,8 @@ class Env {
             googleClientId,
             googleSecret,
             env,
-            appSecret,
             tokenSecret,
+            sessionSecret,
             logDays,
             mongooseUrl,
             port,

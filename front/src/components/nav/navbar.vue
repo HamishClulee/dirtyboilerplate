@@ -4,25 +4,43 @@
         <transition name="fade" mode="in-out">
             <div class="navbar-left" v-if="$route.name === 'home' || scrolledTop">
                 <div class="logo-con" @click="routehome">
-                    <img src="/svg/smallogo.svg" />
+                    <img src="/images/createmevn-logo.svg" />
                 </div>
             </div>
         </transition>
 
         <div class="spacer"></div>
 
-        <div class="account-active-indic" @click="togglecanvas" v-if="isauthed">
-            <div class="avatar-icon">
-                <img src="/svg/avatar.svg" />
+        <div class="navbar-right">
+
+            <div class="text-item" :class="checkvis('home') ? 'active-route' : ''">
+                <router-link :to="{ path: '/'}">home</router-link>
             </div>
-            <h6 class="small-6">ACCOUNT</h6>
+            <div class="text-item" :class="checkvis('authed') ? 'active-route' : ''">
+                <router-link :to="{ path: '/authed'}">Authed</router-link>
+            </div>
+            <div class="text-item" :class="checkvis('login') ? 'active-route' : ''">
+                <router-link :to="{ path: '/auth/login'}">Login</router-link>
+            </div>
+            <div class="text-item" :class="checkvis('singup') ? 'active-route' : ''">
+                <router-link :to="{ path: '/auth/signup'}">Signup</router-link>
+            </div>
+
+            <div class="account-active-indic" @click="togglecanvas" v-if="isauthed">
+                <div class="avatar-icon">
+                    <img src="/svg/avatar.svg" />
+                </div>
+                <h6 class="small-6">ACCOUNT</h6>
+            </div>
+
+            <div class="hamburger" @click="togglecanvas">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
         </div>
 
-        <div class="hamburger" @click="togglecanvas">
-            <div class="line"></div>
-            <div class="line"></div>
-            <div class="line"></div>
-        </div>
+
 
         <transition name="fade" mode="in-out">
 
@@ -100,6 +118,9 @@ export default {
                 EventBus.$emit(MESSAGES, LOGGED_OUT)
                 if (this.$route.path !== '/') this.$router.push({ path: '/' })
             })
+        },
+        checkvis(item) {
+            return item === this.$route.name
         },
     },
     computed: {
@@ -204,6 +225,9 @@ a
     width: 100%
     top: 0
     z-index: 2
+    opacity: 0.9
+    background-color: white
+    border-bottom: 1px solid lighten($font, 60)
 .navbar-right
     align-items: center
     justify-content: flex-end

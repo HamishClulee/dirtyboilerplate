@@ -4,12 +4,25 @@
         <displaysection sassclass="white">
 
             <h1>Welcome to Create Mevn App</h1>
+            <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+                when an unknown printer took a galley of type and scrambled it to make a 
+                type specimen book.
+            </p>
 
         </displaysection>
 
         <displaysection id="srcoll-pop" sassclass="primary">
 
-            <h1 class="h1">Check out the /admin and /account sections</h1>
+            <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+                when an unknown printer took a galley of type and scrambled it to make a 
+                type specimen book.
+            </p>
+
+            <h1>Check out the /admin and /account sections</h1>
             <ctabutton text="try it for free" :do="ctaroute"></ctabutton>
 
         </displaysection>
@@ -37,7 +50,7 @@
             <h1 class="h1">
                 Do the thing!
             </h1>
-            <ctabutton text="try it for free" :do="ctaroute"></ctabutton>
+            <ctabutton :isDark="true" text="try it for free" :do="ctaroute"></ctabutton>
         </displaysection>
 
         <displaysection sassclass="highlight">
@@ -114,8 +127,6 @@ export default {
 .main-h1
     font-size: 2.8em
     font-family: $heading-font
-.h1
-    font-size: 1.8em
 .h2
     font-size: 1.6em
     font-weight: lighter

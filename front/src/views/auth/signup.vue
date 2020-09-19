@@ -127,7 +127,7 @@ export default {
     computed: {
         buildLink() {
             return process.env.NODE_ENV === 'development' ?
-                'http://localhost:1980/auth/google' :
+                'http://localhost:2900/auth/google' :
                 '/auth/google'
         },
         validated() {

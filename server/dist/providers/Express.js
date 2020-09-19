@@ -16,11 +16,9 @@ const authRoutes = require("../routes/authRoutes");
 const Environment_1 = require("./Environment");
 const jwt = require('jsonwebtoken');
 /** App Constants */
-const PORT = 1980;
+const PORT = Environment_1.default.get().port;
 const DEV_URL = Environment_1.default.get().devUrl;
 const PROD_URL = Environment_1.default.get().prodUrl;
-const DEV_PUB_URL = Environment_1.default.get().devPubUrl;
-const BASE_URL = process.env.NODE_ENV === 'development' ? DEV_URL : PROD_URL;
 const RedisStore = require('connect-redis')(session);
 const redisClient = redis.createClient();
 class Express {
@@ -39,7 +37,7 @@ class Express {
             },
             saveUninitialized: true,
             resave: true,
-            secret: Environment_1.default.get().appSecret,
+            secret: Environment_1.default.get().sessionSecret,
             store: new RedisStore({ client: redisClient })
         }));
         if (process.env.NODE_ENV === 'production')
