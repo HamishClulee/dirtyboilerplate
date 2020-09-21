@@ -1,29 +1,33 @@
 <template>
     <div class="navbar-con">
 
-        <transition name="fade" mode="in-out">
-            <div class="navbar-left" v-if="$route.name === 'home' || scrolledTop">
-                <div class="logo-con" @click="routehome">
-                    <img src="/images/createmevn-logo.svg" />
-                </div>
+        <div class="navbar-left">
+            <div class="logo-con" @click="$route.name !== 'home' ? routehome : null">
+                <img src="/images/createmevn-logo.svg" />
             </div>
-        </transition>
+        </div>
 
         <div class="spacer"></div>
 
         <div class="navbar-right">
 
-            <div class="text-item" :class="checkvis('home') ? 'active-route' : ''">
-                <router-link :to="{ path: '/'}">home</router-link>
+            <div class="text-item" :class="checkvis('home') ? 'active-route' : 'inactive-route'">
+                <router-link :to="{ path: '/'}">Home</router-link>
             </div>
-            <div class="text-item" :class="checkvis('authed') ? 'active-route' : ''">
+            <div class="text-item" :class="checkvis('authed') ? 'active-route' : 'inactive-route'">
                 <router-link :to="{ path: '/authed'}">Authed</router-link>
             </div>
-            <div class="text-item" :class="checkvis('login') ? 'active-route' : ''">
+            <div class="text-item" :class="checkvis('login') ? 'active-route' : 'inactive-route'">
                 <router-link :to="{ path: '/auth/login'}">Login</router-link>
             </div>
-            <div class="text-item" :class="checkvis('singup') ? 'active-route' : ''">
+            <div class="text-item" :class="checkvis('signup') ? 'active-route' : 'inactive-route'">
                 <router-link :to="{ path: '/auth/signup'}">Signup</router-link>
+            </div>
+            <div class="text-item" :class="checkvis('docs') ? 'active-route' : 'inactive-route'">
+                <router-link :to="{ path: '/docs'}">Docs</router-link>
+            </div>
+            <div class="text-item" :class="checkvis('components') ? 'active-route' : 'inactive-route'">
+                <router-link :to="{ path: '/components'}">Components</router-link>
             </div>
 
             <div class="account-active-indic" @click="togglecanvas" v-if="isauthed">
@@ -39,8 +43,6 @@
                 <div class="line"></div>
             </div>
         </div>
-
-
 
         <transition name="fade" mode="in-out">
 
@@ -159,8 +161,6 @@ export default {
 a
     text-decoration: none
     border-bottom: 2px solid transparent
-    &:hover
-        border-bottom: 2px solid $secondary
 .canvas-nav
     z-index: 6
     position: absolute
@@ -189,6 +189,26 @@ a
 .active-route
     display: flex
     flex-direction: column
+    &:after
+        content: ''
+        width: 10px
+        height: 2px
+        background-color: $primary
+        position: relative
+        top: 2px
+        right: 2px
+.inactive-route
+    display: flex
+    flex-direction: column
+    &:hover
+        &:after
+            content: ''
+            width: 10px
+            height: 2px
+            background-color: lighten($primary, 20)
+            position: relative
+            top: 2px
+            right: 2px
     &:after
         content: ''
         width: 10px
@@ -228,6 +248,7 @@ a
     opacity: 0.9
     background-color: white
     border-bottom: 1px solid lighten($font, 60)
+    height: $navbar-height
 .navbar-right
     align-items: center
     justify-content: flex-end

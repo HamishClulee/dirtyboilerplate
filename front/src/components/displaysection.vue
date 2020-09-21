@@ -41,10 +41,19 @@ export default {
     color: white
 .tertiary
     background-color: $tertiary
-    color: $font
+    color: white
 .highlight
     background-color: $highlight
     color: white
 .white
     background-color: white
+.additional
+    background-color: $additional
+    color: white
+.high-contrast
+    background-color: $high-contrast
+    color: $font
+.off-white
+    background-color: $off-white
+    color: $font
 </style>

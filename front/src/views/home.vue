@@ -27,16 +27,6 @@
 
         </displaysection>
 
-        <displaysection sassclass="secondary">
-            <p>
-                Auth is all taken care of, as well as password resets and email verification.
-            </p>
-            <h1 class="h1">
-                Hopefully this makes life easier!
-            </h1>
-            <ctabutton text="try it for free" :do="ctaroute"></ctabutton>
-        </displaysection>
-
         <displaysection sassclass="tertiary">
             <p>
                 blah
@@ -50,14 +40,64 @@
             <h1 class="h1">
                 Do the thing!
             </h1>
+            <ctabutton text="try it for free" :do="ctaroute"></ctabutton>
+        </displaysection>
+
+        <displaysection sassclass="high-contrast">
+            <p>
+                Auth is all taken care of, as well as password resets and email verification.
+            </p>
+            <h1 class="h1">
+                Hopefully this makes life easier!
+            </h1>
             <ctabutton :isDark="true" text="try it for free" :do="ctaroute"></ctabutton>
+        </displaysection>
+
+        <displaysection sassclass="secondary">
+            <p>
+                Auth is all taken care of, as well as password resets and email verification.
+            </p>
+            <h1 class="h1">
+                Hopefully this makes life easier!
+            </h1>
+            <ctabutton text="try it for free" :do="ctaroute"></ctabutton>
         </displaysection>
 
         <displaysection sassclass="highlight">
             <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+                when an unknown printer took a galley of type and scrambled it to make a 
+                type specimen book.
+            </p>
+            <p>
                 Lots of words...
             </p>
             <ctabutton text="try it for free" :do="ctaroute"></ctabutton>
+        </displaysection>
+
+        <displaysection sassclass="additional">
+            <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+                when an unknown printer took a galley of type and scrambled it to make a 
+                type specimen book.
+            </p>
+            <h1 class="h1">
+                Hopefully this makes life easier!
+            </h1>
+            <ctabutton text="try it for free" :do="ctaroute"></ctabutton>
+        </displaysection>
+
+
+        <displaysection sassclass="off-white">
+            <p>
+                Auth is all taken care of, as well as password resets and email verification.
+            </p>
+            <h1 class="h1">
+                Hopefully this makes life easier!
+            </h1>
+            <ctabutton :isDark="true" text="try it for free" :do="ctaroute"></ctabutton>
         </displaysection>
         
     </main>

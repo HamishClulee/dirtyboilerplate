@@ -79,12 +79,12 @@ export default {
         })
     },
     created () {
-        this.$QAuth.authenticate(false).then(res => {
+        // this.$QAuth.authenticate(false).then(res => {
 
-            this.$store.commit('IS_AUTHED', res.data.user)
-            EventBus.$emit(MESSAGES, alreadyloggedinas(res.data.user.email))
+        //     this.$store.commit('IS_AUTHED', res.data.user)
+        //     EventBus.$emit(MESSAGES, alreadyloggedinas(res.data.user.email))
 
-        })
+        // })
     },
     methods: {
         submit(e) {

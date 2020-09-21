@@ -1,5 +1,5 @@
 <template>
-    <footer class="qr-footer">
+    <footer class="qr-footer" :class="$route.path.split('/')[1] === 'docs' ? 'docs-footer' : 'normal-footer'">
         <figure class="logo-container">
             <img
                 src="/images/createmevn-logo.svg"
@@ -25,17 +25,22 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.docs-footer
+    margin-left: $docs-sidebar-width
+    height: 20vh
+.normal-footer
+    width: 98%
+    margin-left: auto
+    height: 30vh
+    min-height: 400px
 .qr-footer
     display: flex
     flex-direction: row
     align-items: center
     justify-content: center
-    width: 98%
     min-width: 400px
-    margin-left: auto
     margin-right: auto
-    height: 30vh
-    min-height: 400px
+    
     .logo-container
         width: 20%
         display: flex
