@@ -1,12 +1,16 @@
-$primary: #FFAC0E
-$secondary: #EA2336
-$tertiary: #FCEEDD
-$highlight: #A54974
-$additional: #4974a5
-	
+$primary: #fb3640
+$secondary: #0a2463
+$tertiary: #605f5e
+$highlight: #247ba0
+$additional: #48a9a6
+$off-white: #e2e2e2
+$high-contrast: #f9dc5c
+
 $link: #1976D2
 $font: #212121
 
+// 0a2463,fb3640,605f5e,247ba0,e2e2e2,f9dc5c,48a9a6
+// 0a2463,fb3640,605f5e,247ba0,e2e2e2,
 // EA2336 • FFAC0E • FCEEDD • C4AF00
 // FCEEDD • EA2336 • 9B8B03 • FCEEDD
 
@@ -26,6 +30,7 @@ $highlight-dark: darken($highlight, 30%)
 $link-light: lighten($link, 20)
 $font-light: lighten($font, 30)
 $font-dark: darken($font, 30)
+$font-very-light: lighten($font, 35)
 
 $h1-fontsize: 3.6rem !default
 $h2-fontsize: 3.1rem !default
@@ -36,6 +41,9 @@ $h6-fontsize: 1rem !default
 
 $heading-font: 'Playfair Display', serif
 $body-font: 'Source Sans Pro', sans-serif
+
+$navbar-height: 80px
+$docs-sidebar-width: 300px
 
 body
     color: $font
@@ -55,6 +63,7 @@ html
 @import "transitions"
 @import "containers"
 @import "flexhelp"
+@import "docs"
 
 :export
     primary: $primary

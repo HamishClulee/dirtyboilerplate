@@ -68,15 +68,15 @@ export default {
         })
     },
     created () {
-        this.$QAuth.authenticate(false).then(res => {
+        // this.$QAuth.authenticate(false).then(res => {
 
-            this.$store.commit('IS_AUTHED', res.data.user)
+        //     this.$store.commit('IS_AUTHED', res.data.user)
 
-            EventBus.$emit(MESSAGES, alreadyloggedinas(res.data.user.email))
+        //     EventBus.$emit(MESSAGES, alreadyloggedinas(res.data.user.email))
             
-            this.$router.push({ path: '/app/manage' })
+        //     this.$router.push({ path: '/app/manage' })
 
-        })
+        // })
     },
     methods: {
         submit(e) {

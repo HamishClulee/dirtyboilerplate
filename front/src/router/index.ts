@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 /** Website routes */
 const home = () => import('../views/home.vue')
+const docs = () => import('../views/docs.vue')
 
 /** Admin routes */
 const adminmain = () => import('../views/admin/adminmain.vue')
@@ -53,6 +54,18 @@ const routes = [
         path: '/contact',
         name: 'contact',
         component: contact,
+        beforeEnter: (to: any, from: any, next: any) => {
+            overwritemetas({
+                title: 'Welcome QR | Contact Us',
+                description: `Get in touch with us about; bug reports, feature requests, account queries or kind words of encoragement. We would love to hear from you!`,
+                index: true,
+            }, next)
+        },
+    },
+    {
+        path: '/docs/:category/:subcat',
+        name: 'docs',
+        component: docs,
         beforeEnter: (to: any, from: any, next: any) => {
             overwritemetas({
                 title: 'Welcome QR | Contact Us',
