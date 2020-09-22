@@ -104,7 +104,6 @@ export default {
     padding: 10px 0 10px 20px
 .content-container
     margin-left: $docs-sidebar-width
-    width: 100%
     padding: 50px
 .bump-end
     padding-top: 30px
