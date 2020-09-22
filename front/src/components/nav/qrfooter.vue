@@ -27,7 +27,6 @@ export default {
 <style lang="sass" scoped>
 .docs-footer
     margin-left: $docs-sidebar-width
-    height: 20vh
 .normal-footer
     width: 98%
     margin-left: auto
@@ -38,13 +37,12 @@ export default {
     flex-direction: row
     align-items: center
     justify-content: center
-    min-width: 400px
+    // min-width: 400px
     margin-right: auto
-    
     .logo-container
         width: 20%
         display: flex
-        max-height: 200px
+        height: 200px
         margin-right: 2em
     .text-container
         display: flex

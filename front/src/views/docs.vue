@@ -29,22 +29,31 @@
 </template>
 
 <script>
+import { docs } from './docs/docs.ts'
+
+import Prism from 'prismjs'
+
 export default {
     name: 'docs',
     data () {
         return {
-            markdown: null
+            markdown: null,
         }
     },
     created () {
 
-        if (this.getMDFileName()) {
+        // if (this.getMDFileName()) {
 
-            import(`./docs-markdown/${this.getMDFileName()}`)
-                .then(res => this.markdown = res.default)
-                .then(() => Prism.highlightAll())
+        import(`./docs/test.md`)
+            .then(res => {
+                debugger
+                this.markdown = res.default
+            })
+            .then(() => {
+                Prism.highlightAll()
+            })
 
-        }
+        // }
 
     },
     methods: {
@@ -52,7 +61,7 @@ export default {
 
             try {
 
-                return posts.filter(item => {
+                return docs.filter(item => {
 
                     return item.linkto.params.urlname === this.$route.params.urlname
 
@@ -66,8 +75,8 @@ export default {
 
             }
 
-        }
-    }
+        },
+    },
 }
 </script>
 
@@ -77,7 +86,7 @@ export default {
     margin-top: 70px
     display: flex
     flex-direction: row
-    height: 100vh
+    min-height: 100vh
 .sidebar-container
     width: $docs-sidebar-width
     height: calc(100vh - 80px)
@@ -96,6 +105,7 @@ export default {
 .content-container
     margin-left: $docs-sidebar-width
     width: 100%
+    padding: 50px
 .bump-end
     padding-top: 30px
     border-top: 1px solid $off-white
